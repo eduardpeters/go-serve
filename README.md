@@ -8,3 +8,5 @@ We have been tasked with creating a web server where users can track how many ga
 - `GET /players/{name}` should return a number indicating the total number of wins
 
 - `POST /players/{name}` should record a win for that name, incrementing for every subsequent POST
+
+- `GET /league` should return a list of all players in JSON format
