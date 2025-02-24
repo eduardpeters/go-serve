@@ -7,11 +7,9 @@ import (
 	"strings"
 )
 
-const jsonContentType = "application/json"
-
 type Player struct {
-	Name  string
-	Score int
+	Name string
+	Wins int
 }
 
 type PlayerStore interface {
@@ -24,6 +22,8 @@ type PlayerServer struct {
 	store PlayerStore
 	http.Handler
 }
+
+const jsonContentType = "application/json"
 
 func NewPlayerServer(store PlayerStore) *PlayerServer {
 	p := new(PlayerServer)
@@ -45,7 +45,6 @@ func (p *PlayerServer) leagueHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (p *PlayerServer) playersHandler(w http.ResponseWriter, r *http.Request) {
-
 	player := strings.TrimPrefix(r.URL.Path, "/players/")
 
 	switch r.Method {
