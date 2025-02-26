@@ -9,16 +9,16 @@ We have been tasked with creating a web server where users can track how many ga
 
 - `POST /players/{name}` should record a win for that name, incrementing for every subsequent POST
 
-- `GET /league` should return a list of all players in JSON format:
+- `GET /league` should return a list of all players in JSON format, sorted by wins in descending order:
 ```json
 [
    {
       "Name":"Bill",
-      "Wins":10
+      "Wins":15
    },
    {
       "Name":"Alice",
-      "Wins":15
+      "Wins":10
    }
 ]
 ```
