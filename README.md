@@ -3,6 +3,8 @@ The server project in [Learn Go with Tests](https://quii.gitbook.io/learn-go-wit
 
 ## Specs
 
+### Webserver
+
 We have been tasked with creating a web server where users can track how many games players have won:
 
 - `GET /players/{name}` should return a number indicating the total number of wins
@@ -21,4 +23,11 @@ We have been tasked with creating a web server where users can track how many ga
       "Wins":10
    }
 ]
+```
+
+### Command Line Tool
+
+There is also a CLI that can register wins into the store by typing:
+```
+{PlayerName} wins
 ```
