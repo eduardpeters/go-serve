@@ -8,13 +8,18 @@ import (
 	"strings"
 )
 
+type Game interface {
+	Start(numberOfPlayers int)
+	Finish(winner string)
+}
+
 type CLI struct {
 	in   *bufio.Scanner
 	out  io.Writer
-	game *Game
+	game Game
 }
 
-func NewCLI(in io.Reader, out io.Writer, game *Game) *CLI {
+func NewCLI(in io.Reader, out io.Writer, game Game) *CLI {
 	return &CLI{
 		in:   bufio.NewScanner(in),
 		out:  out,
@@ -39,7 +44,7 @@ func (cli *CLI) PlayPoker() {
 }
 
 func extractWinner(userInput string) string {
-	return strings.Replace(strings.TrimSpace(userInput), " wins", "", 1)
+	return strings.Replace(userInput, " wins", "", 1)
 }
 
 func (cli *CLI) readLine() string {
