@@ -24,6 +24,7 @@ We have been tasked with creating a web server where users can track how many ga
    }
 ]
 ```
+- `GET /game` should display a page where the game runs updating the blind amount using websockets and ending with entering the winner.
 
 ### Command Line Tool
 
