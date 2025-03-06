@@ -9,11 +9,6 @@ import (
 	"strings"
 )
 
-type Game interface {
-	Start(numberOfPlayers int, alertsDestination io.Writer)
-	Finish(winner string)
-}
-
 type CLI struct {
 	in   *bufio.Scanner
 	out  io.Writer
