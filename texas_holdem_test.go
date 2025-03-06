@@ -8,8 +8,9 @@ import (
 	poker "github.com/eduardpeters/go-serve"
 )
 
+var dummyPlayerStore = &poker.StubPlayerStore{}
+
 func TestGame_Start(t *testing.T) {
-	var dummyPlayerStore = &poker.StubPlayerStore{}
 
 	t.Run("schedules alerts on game start for 5 players", func(t *testing.T) {
 		blindAlerter := &poker.SpyBlindAlerter{}
