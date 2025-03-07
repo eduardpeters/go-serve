@@ -5,6 +5,7 @@ import (
 	"io"
 	"strings"
 	"testing"
+	"time"
 
 	poker "github.com/eduardpeters/go-serve"
 )
@@ -92,7 +93,12 @@ func TestCLI(t *testing.T) {
 
 func assertGameStartedWith(t testing.TB, game *GameSpy, numberOfPlayersWanted int) {
 	t.Helper()
-	if game.StartCalledWith != numberOfPlayersWanted {
+
+	passed := retryUntil(500*time.Millisecond, func() bool {
+		return game.StartCalledWith == numberOfPlayersWanted
+	})
+
+	if !passed {
 		t.Errorf("wanted Start called with %d but got %d", numberOfPlayersWanted, game.StartCalledWith)
 	}
 }
@@ -113,7 +119,12 @@ func assertGameNotFinished(t testing.TB, game *GameSpy) {
 
 func assertFinishCalledWith(t testing.TB, game *GameSpy, winner string) {
 	t.Helper()
-	if game.FinishCalledWith != winner {
+
+	passed := retryUntil(500*time.Millisecond, func() bool {
+		return game.FinishCalledWith == winner
+	})
+
+	if !passed {
 		t.Errorf("expected finish called with %q but got %q", winner, game.FinishCalledWith)
 	}
 }
@@ -125,4 +136,14 @@ func assertMessagesSentToUser(t testing.TB, stdout *bytes.Buffer, messages ...st
 	if got != want {
 		t.Errorf("got %q sent to stdout but expected %+v", got, messages)
 	}
+}
+
+func retryUntil(d time.Duration, f func() bool) bool {
+	deadline := time.Now().Add(d)
+	for time.Now().Before(deadline) {
+		if f() {
+			return true
+		}
+	}
+	return false
 }
